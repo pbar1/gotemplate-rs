@@ -1,0 +1,12 @@
+[package]
+name = "gotemplate"
+version = "0.1.0"
+authors = ["Pierce Bartine"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[dev-dependencies]
+json_str = "*"
