@@ -8,30 +8,30 @@ Mostly an experiment to play around with CGo and Rust. Use at your own risk!
 ## Example
 
 ```rust
+use std::borrow::Borrow;
+
 #[macro_use]
 extern crate json_str;
 extern crate gotemplate;
 
-use std::borrow::Borrow;
-
 fn main() {
     let template_body = "Distance: {{ .query.filtered.filter.geo_distance.distance }}";
     let json_data = json_str!({
-         "query": {
-             "filtered": {
-                 "query": {
-                     "match_all": {}
-                 },
-                 "filter": {
-                     "geo_distance": {
-                         "distance": "20km",
-                         "location": {
-                             "lat": 37.776,
-                             "lon": -122.41
-                         }
-                     }
-                 }
-             }
+        "query": {
+            "filtered": {
+                "query": {
+                    "match_all": {}
+                },
+                "filter": {
+                    "geo_distance": {
+                        "distance": "20km",
+                        "location": {
+                            "lat": 37.776,
+                            "lon": -122.41
+                        }
+                    }
+                }
+            }
         }
     });
 
@@ -39,7 +39,7 @@ fn main() {
     println!("With template:\n```\n{}\n```\n", template_body);
     println!("With JSON data:\n```\n{}\n```\n", json_data);
 
-    let rendered = gotemplate::render_go_template(template_body, json_data.borrow()).unwrap();
+    let rendered = gotemplate::render(template_body, json_data.borrow()).unwrap();
     println!("Successful render! Result:\n```\n{}\n```", rendered);
 }
 ```
